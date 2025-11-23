@@ -1,0 +1,34 @@
+{
+    "1": {
+        "payload": { "event" :  "set", "data": { "key": "testing" } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "2": {
+        "payload": { "event" :  "set", "data": { "key": "testing" } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "3": {
+        "payload": { "event" :  "set", "data": { "key": "testing" } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "4": {
+        "payload": { "event" :  "set", "data": { "key": "testing" } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "5": {
+        "payload": { "event" :  "set", "data": { "key": "testing" }, "options" : { "like" : true, "regex" : false } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "6": {
+        "payload": { "event" :  "set", "data": { "key": "testing" }, "options" : { "like" : true, "regex" : false } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "7": {
+        "payload": { "event" :  "set", "data": { "key": "testing" }, "options" : { "like" : true, "regex" : false } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    },
+    "8": {
+        "payload": { "event" :  "set", "data": { "key": "testing" }, "options" : { "like" : true, "regex" : false } },
+        "response": { "status": "success", "event" :  "set", "data": { "testing": "for alues" } }
+    }
+}

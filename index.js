@@ -238,15 +238,31 @@ function startServer(port, hostname = "localhost", options = {}, apps = [], midd
                     catch (e) {
                         return res.status(400).json({ status: 'error', event: event, message: 'Missing "key" or wrong data field for "dump" event.' });
                     }
+                case 'dumpkey':
+                    // LIST ALL: Uses 'dump' as the event name to return keys requested
+                    // 
+                    // // ERROR IN CODE: dumps all keys with like true option whendumpkeys is used
+                    let allDumpSearchKeyItems
+                    try {
+                        // if (!!Array.isArray(data.keys) && !!data.keys) {
+                        // map to respond all keys in the requested data send back in an object data. 
+                        // data: {key: value, key2: value2}
+                        let like = options?.like || false
+                        let regex = options?.regex || false
+                        let type = options?.type || "keyvalue"
+                        try {
+                            allDumpSearchKeyItems = app.dataManager.searchKeys(data.key, { like: options?.like ? options?.like : false });
+                            return res.status(200).json({ status: 'success', event: event, data: allDumpSearchKeyItems, count: allDumpSearchKeyItems?.length })
+                        } catch (e) {
+                            return res.status(500).json({ status: 'failed', event: event, data: allDumpSearchKeyItems, count: allDumpSearchKeyItems?.length });
+                        }
+                    } catch (e) {
+                        return res.status(500).json({ status: 'failed', event: event, data: allDumpSearchKeyItems, count: allDumpSearchKeyItems?.length, error: e });
+                    }
                 case 'dumpkeys':
                     // LIST ALL: Uses 'dump' as the event name to return keys requested
-                    // {"event": "dumpkeys", "data": {"key": ["ke1", "key2", "key3"]}}
-                    // {"event": "dumpkeys", "data": {"key": "test"}}
-
-                    // dump keys loads keys of ["testing", "12"] if present
-                    // { "event": "dumpkeys", "data": { "keys": ["testing", "12"] } }
-                    // // 
-                    // // ERROR IN CODE: dumps all keys with like true option whendumpkeys is used
+                    // 
+                    // // ERROR IN CODE: dumps all keys with like true option when dumpkeys is used
                     let allDumpKeysItems
                     try {
                         // if (!!Arr/ay.isArray(data.keys) && !!data.keys) {
@@ -256,16 +272,11 @@ function startServer(port, hostname = "localhost", options = {}, apps = [], midd
                         let regex = options?.regex || false
                         let type = options?.type || "keyvalue"
                         try {
-                            allSearchKeyValueItems = app.dataManager.search(data.keys, { like: options?.like ? options?.like : false });
-                            return res.status(200).json({ status: 'success', event: event, data: allSearchKeyValueItems, count: allSearchKeyValueItems?.length })
+                            allDumpKeysItems = app.dataManager.dumpKeys(data.keys, { like: options?.like ? options?.like : false });
+                            return res.status(200).json({ status: 'success', event: event, data: allDumpKeysItems, count: allDumpKeysItems?.length })
                         } catch (e) {
-                            return res.status(500).json({ status: 'failed', event: event, data: allSearchKeyValueItems, count: allSearchKeyValueItems?.length });
+                            return res.status(500).json({ status: 'failed', event: event, data: allDumpKeysItems, count: allDumpKeysItems?.length, error: e });
                         }
-                        // allDumpKeysItems = app.dataManager.search(data.keys, { like: like || false, regex: regex || false }, (!!type) ? type : "search");
-                        // return res.status(200).json({ status: 'success', event: event, data: allDumpKeysItems, count: allDumpKeysItems?.length });
-                        // } else {
-                        // allDumpKeysItems = app.dataManager.search(data.keys, { like: like || false, regex: regex || false }, (!!type) ? type : "search");
-                        // }
                     } catch (e) {
                         return res.status(500).json({ status: 'failed', event: event, data: allDumpKeysItems, count: allDumpKeysItems?.length, error: e });
                     }

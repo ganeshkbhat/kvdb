@@ -1,0 +1,232 @@
+{
+    "1": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
+        }
+    },
+    "2": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
+        }
+    },
+    "3": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "error",
+            "event": "get",
+            "message": "Item with key \"testing\" not found."
+        }
+    },
+    "4": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        }
+    },
+    "5": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "keys": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        }
+    },
+    "6": {
+        "payload": {
+            "event": "dumpkeys",
+            "data": {
+                "keys": "testing"
+            }
+        },
+        "response": {
+            "status": "failed",
+            "event": "dumpkeys",
+            "error": {}
+        }
+    },
+    "7": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "keys": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {},
+            "message": "Item with key \"undefined\" successfully removed."
+        }
+    },
+    "8": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "keys": [
+                    "testing",
+                    "12"
+                ]
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {},
+            "message": "Item with key \"undefined\" successfully removed."
+        }
+    },
+    "9": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "key": [
+                    "testing",
+                    "12"
+                ]
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {
+                "key": [
+                    "testing",
+                    "12"
+                ]
+            },
+            "message": "Item with key \"testing,12\" successfully removed."
+        }
+    },
+    "10": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": [
+                    "testing"
+                ]
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        }
+    },
+    "11": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        }
+    },
+    "12": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "keys": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        }
+    },
+    "13": {
+        "payload": {
+            "event": "dump",
+            "data": {}
+        },
+        "response": {
+            "status": "success",
+            "event": "dump",
+            "data": {
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        }
+    }
+}
