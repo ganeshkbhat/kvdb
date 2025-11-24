@@ -1,50 +1,226 @@
 {
     "1": {
-        "payload": { "event" :  "read", "data": { "key": "testing" } },
-        "response": { "status": "success", "event" :  "read", "data": { "testing": "for alues" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
     },
     "2": {
-        "payload": { "event" :  "read", "data": { "key": "testing" } },
-        "response": { "status": "success", "event" :  "read", "data": { "testing": "for alues" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
     },
     "3": {
-        "payload": { "event" :  "read", "data": { "key": "testing" } },
-        "response": { "status": "success", "event" :  "read", "data": { "testing": "for alues" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
     },
     "4": {
-        "payload": { "event" :  "read", "data": { "key": "testing" } },
-        "response": { "status": "success", "event" :  "read", "data": { "testing": "for alues" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
     },
     "5": {
-        "payload": { "event" :  "read", "data": { "key": "12" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "12": "20000" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "12"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "12": "20000"
+            }
+        },
+        "description": ""
     },
     "6": {
-        "payload": { "event" :  "read", "data": { "key": "12" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "12": "20000" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "12"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "12": "20000"
+            }
+        },
+        "description": ""
     },
     "7": {
-        "payload": { "event" :  "read", "data": { "key": "12" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "12": "20000" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "12"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "12": "20000"
+            }
+        },
+        "description": ""
     },
     "8": {
-        "payload": { "event" :  "read", "data": { "key": "12" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "12": "20000" } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "12"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "12": "20000"
+            }
+        },
+        "description": ""
     },
     "9": {
-        "payload": { "event" :  "read", "data": { "key": "score" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "score": [] } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "score"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "score": []
+            }
+        },
+        "description": ""
     },
     "10": {
-        "payload": { "event" :  "read", "data": { "key": "score" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "score": [] } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "score"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "score": []
+            }
+        },
+        "description": ""
     },
     "11": {
-        "payload": { "event" :  "read", "data": { "key": "test" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "score": [] } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "test"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "score": []
+            }
+        },
+        "description": ""
     },
     "12": {
-        "payload": { "event" :  "read", "data": { "key": "test" }, "options" : { "like" : true, "regex" : false } },
-        "response": { "status": "success", "event" :  "read", "data": { "score": [] } }
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "test"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "score": []
+            }
+        },
+        "description": ""
     }
 }

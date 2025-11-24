@@ -13,7 +13,8 @@
                 "key": "testing"
             },
             "message": "Item with key \"testing\" successfully removed."
-        }
+        },
+        "description": "testing delete function for removing key 'testing'"
     },
     "2": {
         "payload": {
@@ -29,7 +30,8 @@
                 "key": "testing"
             },
             "message": "Item with key \"testing\" successfully removed."
-        }
+        },
+        "description": ""
     },
     "3": {
         "payload": {
@@ -42,7 +44,8 @@
             "status": "error",
             "event": "get",
             "message": "Item with key \"testing\" not found."
-        }
+        },
+        "description": ""
     },
     "4": {
         "payload": {
@@ -56,23 +59,10 @@
             "event": "dumpkey",
             "data": [],
             "count": 0
-        }
+        },
+        "description": ""
     },
     "5": {
-        "payload": {
-            "event": "dumpkey",
-            "data": {
-                "keys": "testing"
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        }
-    },
-    "6": {
         "payload": {
             "event": "dumpkeys",
             "data": {
@@ -83,13 +73,14 @@
             "status": "failed",
             "event": "dumpkeys",
             "error": {}
-        }
+        },
+        "description": ""
     },
-    "7": {
+    "6": {
         "payload": {
             "event": "delete",
             "data": {
-                "keys": "testing"
+                "keys": "12"
             }
         },
         "response": {
@@ -97,7 +88,23 @@
             "event": "delete",
             "data": {},
             "message": "Item with key \"undefined\" successfully removed."
-        }
+        },
+        "description": ""
+    },
+    "7": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "keys": "12"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {},
+            "message": "Item with key \"undefined\" successfully removed."
+        },
+        "description": ""
     },
     "8": {
         "payload": {
@@ -114,7 +121,8 @@
             "event": "delete",
             "data": {},
             "message": "Item with key \"undefined\" successfully removed."
-        }
+        },
+        "description": ""
     },
     "9": {
         "payload": {
@@ -136,57 +144,10 @@
                 ]
             },
             "message": "Item with key \"testing,12\" successfully removed."
-        }
+        },
+        "description": ""
     },
     "10": {
-        "payload": {
-            "event": "dumpkey",
-            "data": {
-                "key": [
-                    "testing"
-                ]
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        }
-    },
-    "11": {
-        "payload": {
-            "event": "dumpkey",
-            "data": {
-                "key": "testing"
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        }
-    },
-    "12": {
-        "payload": {
-            "event": "dumpkey",
-            "data": {
-                "keys": "testing"
-            },
-            "options": {
-                "like": true,
-                "regex": false
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        }
-    },
-    "13": {
         "payload": {
             "event": "dump",
             "data": {}
@@ -227,6 +188,7 @@
                     92
                 ]
             }
-        }
+        },
+        "description": ""
     }
 }
