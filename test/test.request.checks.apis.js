@@ -15,8 +15,18 @@ const {
 // --- 3. Mocha Test Suite ---
 describe('API Sequence Testing: Payloads and Expected Responses', () => {
     let allTestScenarios = [
+        "./payloads.dump.json",
+        // "./payloads.read.json",
+        // "./payloads.get.json",
+        // "./payloads.write.json",
+        // "./payloads.set.json",
+        // "./payloads.update.json",
         "./payloads.delete.json",
-        "./payloads.dump.json"
+        // "./payloads.deletekey.json",
+        // "./payloads.deletekeys.json",
+        // "./payloads.search.json",
+        // "./payloads.searchkeyvalue.json",
+        // "./payloads.searchvalue.json",
     ]
     allTestScenarios.forEach(scenario => {
         var testSequenceData = require(scenario)
@@ -47,11 +57,21 @@ describe('API Sequence Testing: Payloads and Expected Responses', () => {
                 // 1. Send the payload using the (mocked) post function
                 const actualResponse = await makePostRequest(host, port, '/', testSequenceData[key]["payload"], customOptions);
                 const response = JSON.parse(actualResponse)
-                // 2. Assert that the actual response deeply matches the expected response object
-                // Chai's 'deep.equal' performs a recursive comparison of the object properties.
-                expect(response).to.deep.equal(testSequenceData[key].response,
-                    `Expected response for Case ${key} to match, but objects were different.`
+                // // 2. Assert that the actual response deeply matches the expected response object
+                // // Chai's 'deep.equal' performs a recursive comparison of the object properties.
+                // //
+                // console.log("assertDeepEqual", JSON.stringify(response))
+                // console.log("assertDeepEqual", JSON.stringify(testSequenceData[key].response))
+                // console.log(assertDeepEqual(response, testSequenceData[key].response))
+                // console.log("deepCompare", deepCompare(JSON.stringify( response), JSON.stringify(testSequenceData[key].response)))
+                // 
+                let dc = deepCompare(JSON.stringify( response), JSON.stringify(testSequenceData[key].response))
+                // expect(dc.length).to.equal(0)
+                // console.log(dc, response, actualResponse);
+                expect(JSON.parse(JSON.stringify(response))).to.deep.equal(JSON.parse(JSON.stringify(testSequenceData[key].response)),
+                    `Expected response for Case ${key} to match, but objects were different. ${testSequenceData[key].description}`
                 );
+                assertDeepEqual(response, testSequenceData[key].response)
             });
         }
     })

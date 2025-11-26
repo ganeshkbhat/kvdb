@@ -1,5 +1,161 @@
 {
+    "0": {
+        "payload": {
+            "event": "init",
+            "data": {
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "for alues",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "init",
+            "data": {
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "for alues",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "description": "1 - init and then run the tests"
+    },
     "1": {
+        "payload": {
+            "event": "init",
+            "data": {
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "for alues",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "init",
+            "data": {
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "for alues",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "description": "1 - init and then run the tests"
+    },
+    "2": {
         "payload": {
             "event": "dump",
             "data": {}
@@ -42,75 +198,34 @@
                 ]
             }
         },
-        "description": ""
-    },
-    "2": {
-        "payload": {
-            "event": "dump",
-            "data": {
-                "keys": {}
-            },
-            "options": {
-                "like": false,
-                "regex": false
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dump",
-            "data": {
-                "12": 20000,
-                "879898": [
-                    "test",
-                    "for",
-                    "alues"
-                ],
-                "testing": "for alues",
-                "123tsj": "testing",
-                "store": [
-                    "vaue",
-                    "loads",
-                    10
-                ],
-                "user_id": 101,
-                "username": "alpha_user",
-                "status": "Active",
-                "tags": [
-                    "premium",
-                    "new_member",
-                    "verified"
-                ],
-                "location": "New York City",
-                "last_login": "2025-11-10",
-                "settings": {
-                    "theme": "dark",
-                    "notifications": true
-                },
-                "scores": [
-                    95,
-                    88,
-                    92
-                ]
-            }
-        },
-        "description": ""
+        "description": "1 - the first dump without any alterations"
     },
     "3": {
         "payload": {
-            "event": "dump",
+            "event": "delete",
             "data": {
-                "keys": {}
-            },
-            "options": {
-                "like": true,
-                "regex": true
+                "key": "12"
             }
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {
+                "key": "12"
+            },
+            "message": "Item with key \"12\" successfully removed."
+        },
+        "description": "2 - delete key 12 to check if dump function work withut errors"
+    },
+    "4": {
+        "payload": {
+            "event": "dump",
+            "data": {}
         },
         "response": {
             "status": "success",
             "event": "dump",
             "data": {
-                "12": 20000,
                 "879898": [
                     "test",
                     "for",
@@ -144,26 +259,7 @@
                 ]
             }
         },
-        "description": ""
-    },
-    "4": {
-        "payload": {
-            "event": "delete",
-            "data": {
-                "keys": "12"
-            },
-            "options": {
-                "like": true,
-                "regex": true
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "delete",
-            "data": {},
-            "message": "Item with key \"undefined\" successfully removed."
-        },
-        "description": ""
+        "description": "3 - third function dump to check delete key 12 worked or not. should not have key 12"
     },
     "5": {
         "payload": {
@@ -180,12 +276,12 @@
             "status": "success",
             "event": "dump",
             "data": {
-                "12": 20000,
                 "879898": [
                     "test",
                     "for",
                     "alues"
                 ],
+                "testing": "for alues",
                 "123tsj": "testing",
                 "store": [
                     "vaue",
@@ -213,11 +309,11 @@
                 ]
             }
         },
-        "description": ""
+        "description": "4- check delete key 12  worked or not. dump should not have key 12"
     },
     "6": {
         "payload": {
-            "event": "delete",
+            "event": "dumpkey",
             "data": {
                 "keys": "12"
             },
@@ -228,16 +324,17 @@
         },
         "response": {
             "status": "success",
-            "event": "delete",
-            "data": {},
-            "message": "Item with key \"undefined\" successfully removed."
-        }
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        },
+        "description": ""
     },
     "7": {
         "payload": {
-            "event": "dump",
+            "event": "dumpkey",
             "data": {
-                "keys": "12"
+                "key": "12"
             },
             "options": {
                 "like": true,
@@ -246,46 +343,20 @@
         },
         "response": {
             "status": "success",
-            "event": "dump",
-            "data": {
-                "12": 20000,
-                "879898": [
-                    "test",
-                    "for",
-                    "alues"
-                ],
-                "123tsj": "testing",
-                "store": [
-                    "vaue",
-                    "loads",
-                    10
-                ],
-                "user_id": 101,
-                "username": "alpha_user",
-                "status": "Active",
-                "tags": [
-                    "premium",
-                    "new_member",
-                    "verified"
-                ],
-                "location": "New York City",
-                "last_login": "2025-11-10",
-                "settings": {
-                    "theme": "dark",
-                    "notifications": true
-                },
-                "scores": [
-                    95,
-                    88,
-                    92
-                ]
-            }
+            "event": "dumpkey",
+            "data": [
+                {
+                    "key": "123tsj",
+                    "value": "testing"
+                }
+            ],
+            "count": 1
         },
         "description": ""
     },
     "8": {
         "payload": {
-            "event": "delete",
+            "event": "get",
             "data": {
                 "keys": "12"
             },
@@ -295,16 +366,33 @@
             }
         },
         "response": {
-            "status": "success",
-            "event": "delete",
-            "data": {},
-            "message": "Item with key \"undefined\" successfully removed."
+            "status": "error",
+            "event": "get",
+            "message": "Missing \"key\" field for \"get\" event."
         },
         "description": ""
     },
     "9": {
         "payload": {
-            "event": "delete",
+            "event": "get",
+            "data": {
+                "keys": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": true
+            }
+        },
+        "response": {
+            "status": "error",
+            "event": "get",
+            "message": "Missing \"key\" field for \"get\" event."
+        },
+        "description": ""
+    },
+    "10": {
+        "payload": {
+            "event": "get",
             "data": {
                 "key": "12"
             },
@@ -314,25 +402,162 @@
             }
         },
         "response": {
-            "status": "success",
-            "event": "delete",
-            "data": {
-                "key": "12"
-            },
-            "message": "Item with key \"12\" successfully removed."
+            "status": "error",
+            "event": "get",
+            "message": "Item with key \"12\" not found."
         },
         "description": ""
     },
-    "10": {
+    "11": {
         "payload": {
-            "event": "dump",
+            "event": "get",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
                 "regex": true
             }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
+    },
+    "12": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": true
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [
+                {
+                    "key": "testing",
+                    "value": "for alues"
+                }
+            ],
+            "count": 1
+        },
+        "description": ""
+    },
+    "13": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "keys": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": true
+            }
+        },
+        "response": {
+            "status": "error",
+            "event": "get",
+            "message": "Missing \"key\" field for \"get\" event."
+        },
+        "description": ""
+    },
+    "14": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": true
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "testing": "for alues"
+            }
+        },
+        "description": ""
+    },
+    "15": {
+        "payload": {
+            "event": "dump",
+            "data": {},
+            "options": {}
+        },
+        "response": {
+            "status": "success",
+            "event": "dump",
+            "data": {
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "for alues",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "description": ""
+    },
+    "16": {
+        "payload": {
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            },
+            "options": {}
+        },
+        "response": {
+            "status": "success",
+            "event": "delete",
+            "data": {
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
+        },
+        "description": ""
+    },
+    "17": {
+        "payload": {
+            "event": "dump",
+            "data": {},
+            "options": {}
         },
         "response": {
             "status": "success",
