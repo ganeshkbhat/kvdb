@@ -388,7 +388,22 @@ function startServer(port, hostname = "localhost", options = {}, apps = [], midd
 
                         return res.status(500).json({ status: 'failed', event: event, data: {}, error: e });
                     }
-                case 'deletedkeys':
+                case 'deletekey':
+                    // DELETEKEY: Uses 'remove' as the event name
+                    // this event delete removes/deletes the key send in the data with event details
+                    // // {"event": "delete", "data": {"key": "12" }}
+                    // if (!data.key) {
+                    //     return res.status(400).json({ status: 'error', event: event, data: {}, message: 'Missing "key" field for "remove" event.' });
+                    // }
+                    try {
+                        deleted = app.dataManager.deleteKey(data.key);
+                        if (!deleted) throw new Error("the key was not deleted")
+                        return res.status(200).json({ status: 'success', event: event, data: { key: data.key }, message: `Item with key "${data.key}" successfully removed.` })
+                    } catch (e) {
+
+                        return res.status(500).json({ status: 'failed', event: event, data: {}, error: e });
+                    }
+                case 'deletekeys':
                     // DELETE: Uses 'remove' as the event name
 
                     try {

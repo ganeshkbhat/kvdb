@@ -79,96 +79,56 @@
     },
     "1": {
         "payload": {
-            "event": "deletekeys",
+            "event": "init",
             "data": {
-                "keys": [
-                    "testing"
+                "scores": [
+                    95,
+                    88,
+                    92
                 ]
             }
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
+            "event": "init",
             "data": {
-                "key": [
-                    "testing"
+                "scores": [
+                    95,
+                    88,
+                    92
                 ]
-            },
-            "message": "Item with key \"undefined\" successfully removed."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
+            }
+        }
     },
     "2": {
         "payload": {
-            "event": "deletekeys",
-            "data": {
-                "keys": [
-                    "scores"
-                ]
-            }
+            "event": "dump",
+            "data": {}
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
+            "event": "init",
             "data": {
-                "key": [
-                    "scores"
+                "scores": [
+                    95,
+                    88,
+                    92
                 ]
-            },
-            "message": "Item with key \"undefined\" successfully removed."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
+            }
+        }
     },
     "3": {
         "payload": {
-            "event": "deletekeys",
-            "data": {
-                "keys": [
-                    "12"
-                ]
-            }
+            "event": "dump",
+            "data": {}
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
-            "data": {
-                "key": [
-                    "12"
-                ]
-            },
-            "message": "Item with key \"undefined\" successfully removed."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
+            "event": "dump",
+            "data": {}
+        }
     },
     "4": {
-        "payload": {
-            "event": "get",
-            "data": {
-                "key": "12"
-            }
-        },
-        "response": {
-            "status": "error",
-            "event": "get",
-            "message": "Item with key \"12\" not found."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
-    },
-    "5": {
-        "payload": {
-            "event": "get",
-            "data": {
-                "key": "testing"
-            }
-        },
-        "response": {
-            "status": "error",
-            "event": "get",
-            "message": "Item with key \"testing\" not found."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
-    },
-    "6": {
         "payload": {
             "event": "get",
             "data": {
@@ -179,10 +139,25 @@
             "status": "error",
             "event": "get",
             "message": "Item with key \"scores\" not found."
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
+        }
     },
-    "9": {
+    "5": {
+        "payload": {
+            "event": "set",
+            "data": {
+                "key": "scores",
+                "value": "what score are you talking about"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "set",
+            "data": {
+                "scores": "what score are you talking about"
+            }
+        }
+    },
+    "6": {
         "payload": {
             "event": "dump",
             "data": {}
@@ -191,33 +166,8 @@
             "status": "success",
             "event": "dump",
             "data": {
-                "879898": [
-                    "test",
-                    "for",
-                    "alues"
-                ],
-                "123tsj": "testing",
-                "store": [
-                    "vaue",
-                    "loads",
-                    10
-                ],
-                "user_id": 101,
-                "username": "alpha_user",
-                "status": "Active",
-                "tags": [
-                    "premium",
-                    "new_member",
-                    "verified"
-                ],
-                "location": "New York City",
-                "last_login": "2025-11-10",
-                "settings": {
-                    "theme": "dark",
-                    "notifications": true
-                }
+                "scores": "what score are you talking about"
             }
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
+        }
     }
 }

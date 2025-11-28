@@ -118,6 +118,7 @@ function deepCompare(val1, val2, currentPath = '', differences = []) {
     if (val1 === val2) {
         return differences;
     }
+    
 
     // Check for type difference or null/undefined vs anything else
     if (typeof val1 !== typeof val2 || val1 === null || val2 === null) {

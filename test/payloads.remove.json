@@ -79,7 +79,7 @@
     },
     "1": {
         "payload": {
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
                 "keys": [
                     "testing"
@@ -88,19 +88,19 @@
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
-                "key": [
+                "keys": [
                     "testing"
                 ]
             },
-            "message": "Item with key \"undefined\" successfully removed."
+            "message": "Item with key \"testing\" successfully removed."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
     "2": {
         "payload": {
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
                 "keys": [
                     "scores"
@@ -109,19 +109,19 @@
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
-                "key": [
+                "keys": [
                     "scores"
                 ]
             },
-            "message": "Item with key \"undefined\" successfully removed."
+            "message": "Item with key \"scores\" successfully removed."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
     "3": {
         "payload": {
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
                 "keys": [
                     "12"
@@ -130,13 +130,13 @@
         },
         "response": {
             "status": "success",
-            "event": "deletekeys",
+            "event": "remove",
             "data": {
-                "key": [
+                "keys": [
                     "12"
                 ]
             },
-            "message": "Item with key \"undefined\" successfully removed."
+            "message": "Item with key \"12\" successfully removed."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },

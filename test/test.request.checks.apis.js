@@ -15,17 +15,41 @@ const {
 // --- 3. Mocha Test Suite ---
 describe('API Sequence Testing: Payloads and Expected Responses', () => {
     let allTestScenarios = [
-        "./payloads.dump.json",
-        // "./payloads.read.json",
+        // // handled - dump  
+        // "./payloads.dump.json",
+        // // handled -   
+        // "./payloads.dumpkey.json", 
+        // // handled -   
+        // "./payloads.dumpkeys.json",
+        // // handled - init
+        // "./payloads.init.json",
+        // // handled - 
+        // "./payloads.load.json",
+        // // handled - get 
         // "./payloads.get.json",
-        // "./payloads.write.json",
-        // "./payloads.set.json",
-        // "./payloads.update.json",
-        "./payloads.delete.json",
-        // "./payloads.deletekey.json",
+        // // handled - delete 
+        // "./payloads.delete.json",
+        // // handled - deleteKey or delete
+        // "./payloads.delete.one.json",
+        // // handled - deleteKey or delete (NOT WORKING, Error)
+        // "./payloads.delete.two.json",
+        // // handled - deletekeys [ or remove ] (NOT WORKING, Error)
         // "./payloads.deletekeys.json",
+        // // handled -[ deletekeys or] remove (NOT WORKING)
+        // "./payloads.remove.json",
+        // // handled - read  (NOT WORKING, Error)
+        // "./payloads.read.json",
+        // // handled - create 
+        // "./payloads.create.json",
+        // // handled -  set
+        // "./payloads.set.json",
+        // // handled - update
+        // "./payloads.update.json",
+        // // handled - 
         // "./payloads.search.json",
+        // // handled - 
         // "./payloads.searchkeyvalue.json",
+        // // handled - 
         // "./payloads.searchvalue.json",
     ]
     allTestScenarios.forEach(scenario => {
@@ -59,15 +83,12 @@ describe('API Sequence Testing: Payloads and Expected Responses', () => {
                 const response = JSON.parse(actualResponse)
                 // // 2. Assert that the actual response deeply matches the expected response object
                 // // Chai's 'deep.equal' performs a recursive comparison of the object properties.
-                // //
-                // console.log("assertDeepEqual", JSON.stringify(response))
-                // console.log("assertDeepEqual", JSON.stringify(testSequenceData[key].response))
+                // //                
+
                 // console.log(assertDeepEqual(response, testSequenceData[key].response))
                 // console.log("deepCompare", deepCompare(JSON.stringify( response), JSON.stringify(testSequenceData[key].response)))
                 // 
                 let dc = deepCompare(JSON.stringify( response), JSON.stringify(testSequenceData[key].response))
-                // expect(dc.length).to.equal(0)
-                // console.log(dc, response, actualResponse);
                 expect(JSON.parse(JSON.stringify(response))).to.deep.equal(JSON.parse(JSON.stringify(testSequenceData[key].response)),
                     `Expected response for Case ${key} to match, but objects were different. ${testSequenceData[key].description}`
                 );

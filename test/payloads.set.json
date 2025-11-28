@@ -81,46 +81,47 @@
         "payload": {
             "event": "set",
             "data": {
-                "key": "testing"
+                "key": "testing",
+                "value": "triumph here"
             }
         },
         "response": {
             "status": "success",
             "event": "set",
             "data": {
-                "testing": "for alues"
+                "testing": "triumph here"
             }
         },
         "description": ""
     },
     "2": {
         "payload": {
-            "event": "set",
+            "event": "get",
             "data": {
                 "key": "testing"
             }
         },
         "response": {
             "status": "success",
-            "event": "set",
+            "event": "get",
             "data": {
-                "testing": "for alues"
+                "testing": "triumph here"
             }
         },
         "description": ""
     },
     "3": {
         "payload": {
-            "event": "set",
+            "event": "read",
             "data": {
                 "key": "testing"
             }
         },
         "response": {
             "status": "success",
-            "event": "set",
+            "event": "read",
             "data": {
-                "testing": "for alues"
+                "testing": "triumph here"
             }
         },
         "description": ""
@@ -129,21 +130,19 @@
         "payload": {
             "event": "set",
             "data": {
-                "key": "testing"
+                "keys": "testing"
             }
         },
         "response": {
-            "status": "success",
+            "status": "error",
             "event": "set",
-            "data": {
-                "testing": "for alues"
-            }
+            "message": "Missing required fields: \"key\" (string) and \"value\" (object) for \"set\" event."
         },
         "description": ""
     },
     "5": {
         "payload": {
-            "event": "set",
+            "event": "get",
             "data": {
                 "key": "12"
             },
@@ -154,9 +153,9 @@
         },
         "response": {
             "status": "success",
-            "event": "set",
+            "event": "get",
             "data": {
-                "12": "20000"
+                "12": 20000
             }
         },
         "description": ""
@@ -165,7 +164,7 @@
         "payload": {
             "event": "set",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -173,19 +172,17 @@
             }
         },
         "response": {
-            "status": "success",
+            "status": "error",
             "event": "set",
-            "data": {
-                "12": "20000"
-            }
+            "message": "Missing required fields: \"key\" (string) and \"value\" (object) for \"set\" event."
         },
         "description": ""
     },
     "7": {
         "payload": {
-            "event": "set",
+            "event": "dumpkey",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -194,18 +191,22 @@
         },
         "response": {
             "status": "success",
-            "event": "set",
-            "data": {
-                "12": "20000"
-            }
+            "event": "dumpkey",
+            "data": [
+                {
+                    "key": "testing",
+                    "value": "triumph here"
+                }
+            ],
+            "count": 1
         },
         "description": ""
     },
     "8": {
         "payload": {
-            "event": "set",
+            "event": "dumkeys",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -213,19 +214,17 @@
             }
         },
         "response": {
-            "status": "success",
-            "event": "set",
-            "data": {
-                "12": "20000"
-            }
+            "status": "error",
+            "event": "dumkeys",
+            "message": "Unknown event type: dumkeys"
         },
         "description": ""
     },
     "9": {
         "payload": {
-            "event": "set",
+            "event": "dumpkeys",
             "data": {
-                "key": "score"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -233,17 +232,15 @@
             }
         },
         "response": {
-            "status": "success",
-            "event": "set",
-            "data": {
-                "score": []
-            }
+            "status": "failed",
+            "event": "dumpkeys",
+            "error": {}
         },
         "description": ""
     },
     "10": {
         "payload": {
-            "event": "set",
+            "event": "dump",
             "data": {
                 "key": "score"
             },
@@ -254,19 +251,48 @@
         },
         "response": {
             "status": "success",
-            "event": "set",
+            "event": "dump",
             "data": {
-                "score": []
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "triumph here",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
             }
         },
         "description": ""
     },
     "11": {
         "payload": {
-            "event": "set",
-            "data": {
-                "key": "test"
-            },
+            "event": "dump",
+            "data": {},
             "options": {
                 "like": true,
                 "regex": false
@@ -274,29 +300,40 @@
         },
         "response": {
             "status": "success",
-            "event": "set",
+            "event": "dump",
             "data": {
-                "score": []
-            }
-        },
-        "description": ""
-    },
-    "12": {
-        "payload": {
-            "event": "set",
-            "data": {
-                "key": "test"
-            },
-            "options": {
-                "like": true,
-                "regex": false
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "set",
-            "data": {
-                "score": []
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "testing": "triumph here",
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
             }
         },
         "description": ""

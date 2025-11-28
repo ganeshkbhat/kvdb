@@ -95,32 +95,36 @@
     },
     "2": {
         "payload": {
-            "event": "get",
+            "event": "dumpkey",
             "data": {
                 "key": "testing"
             }
         },
         "response": {
             "status": "success",
-            "event": "get",
-            "data": {
-                "testing": "for alues"
-            }
+            "event": "dumpkey",
+            "data": [
+                {
+                    "key": "testing",
+                    "value": "for alues"
+                }
+            ],
+            "count": 1
         },
         "description": ""
     },
     "3": {
         "payload": {
-            "event": "get",
+            "event": "update",
             "data": {
-                "key": "testing"
+                "testing": "value112"
             }
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "update",
             "data": {
-                "testing": "for alues"
+                "testing": "value112"
             }
         },
         "description": ""
@@ -136,16 +140,16 @@
             "status": "success",
             "event": "get",
             "data": {
-                "testing": "for alues"
+                "testing": "value112"
             }
         },
         "description": ""
     },
     "5": {
         "payload": {
-            "event": "get",
+            "event": "read",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -154,18 +158,18 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "read",
             "data": {
-                "12": "20000"
+                "testing": "value112"
             }
         },
         "description": ""
     },
     "6": {
         "payload": {
-            "event": "get",
+            "event": "delete",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -174,10 +178,11 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "delete",
             "data": {
-                "12": "20000"
-            }
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
         },
         "description": ""
     },
@@ -185,7 +190,7 @@
         "payload": {
             "event": "get",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -193,19 +198,17 @@
             }
         },
         "response": {
-            "status": "success",
+            "status": "error",
             "event": "get",
-            "data": {
-                "12": "20000"
-            }
+            "message": "Item with key \"testing\" not found."
         },
         "description": ""
     },
     "8": {
         "payload": {
-            "event": "get",
+            "event": "deletekey",
             "data": {
-                "key": "12"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -214,18 +217,19 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "deletekey",
             "data": {
-                "12": "20000"
-            }
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
         },
         "description": ""
     },
     "9": {
         "payload": {
-            "event": "get",
+            "event": "deletekeys",
             "data": {
-                "key": "score"
+                "key": "testing"
             },
             "options": {
                 "like": true,
@@ -234,18 +238,19 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "deletekeys",
             "data": {
-                "score": []
-            }
+                "key": []
+            },
+            "message": "Item with key \"testing\" successfully removed."
         },
         "description": ""
     },
     "10": {
         "payload": {
-            "event": "get",
+            "event": "deletekeys",
             "data": {
-                "key": "score"
+                "keys": "testing"
             },
             "options": {
                 "like": true,
@@ -254,19 +259,18 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "deletekeys",
             "data": {
-                "score": []
-            }
+                "key": []
+            },
+            "message": "Item with key \"undefined\" successfully removed."
         },
         "description": ""
     },
     "11": {
         "payload": {
-            "event": "get",
-            "data": {
-                "key": "test"
-            },
+            "event": "dump",
+            "data": {},
             "options": {
                 "like": true,
                 "regex": false
@@ -274,9 +278,39 @@
         },
         "response": {
             "status": "success",
-            "event": "get",
+            "event": "dump",
             "data": {
-                "score": []
+                "12": 20000,
+                "879898": [
+                    "test",
+                    "for",
+                    "alues"
+                ],
+                "123tsj": "testing",
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ],
+                "user_id": 101,
+                "username": "alpha_user",
+                "status": "Active",
+                "tags": [
+                    "premium",
+                    "new_member",
+                    "verified"
+                ],
+                "location": "New York City",
+                "last_login": "2025-11-10",
+                "settings": {
+                    "theme": "dark",
+                    "notifications": true
+                },
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
             }
         },
         "description": ""
@@ -285,7 +319,25 @@
         "payload": {
             "event": "get",
             "data": {
-                "key": "test"
+                "key": "testing"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "error",
+            "event": "get",
+            "message": "Item with key \"testing\" not found."
+        },
+        "description": ""
+    },
+    "13": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "store"
             },
             "options": {
                 "like": true,
@@ -296,7 +348,55 @@
             "status": "success",
             "event": "get",
             "data": {
-                "score": []
+                "store": [
+                    "vaue",
+                    "loads",
+                    10
+                ]
+            }
+        },
+        "description": ""
+    },
+    "14": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "scores"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "scores": [
+                    95,
+                    88,
+                    92
+                ]
+            }
+        },
+        "description": ""
+    },
+    "15": {
+        "payload": {
+            "event": "get",
+            "data": {
+                "key": "12"
+            },
+            "options": {
+                "like": true,
+                "regex": false
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "get",
+            "data": {
+                "12": 20000
             }
         },
         "description": ""
