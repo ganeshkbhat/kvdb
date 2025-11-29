@@ -85,9 +85,12 @@
             }
         },
         "response": {
-            "status": "error",
+            "status": "success",
             "event": "deletekey",
-            "message": "Unknown event type: deletekey"
+            "data": {
+                "key": "testing"
+            },
+            "message": "Item with key \"testing\" successfully removed."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
@@ -104,9 +107,7 @@
             "status": "success",
             "event": "deletekeys",
             "data": {
-                "key": [
-                    "testing"
-                ]
+                "key": []
             },
             "message": "Item with key \"undefined\" successfully removed."
         },
@@ -114,22 +115,39 @@
     },
     "3": {
         "payload": {
-            "event": "delete",
+            "event": "deletekey",
             "data": {
-                "key": "testing"
+                "key": "12"
             }
         },
         "response": {
             "status": "success",
-            "event": "delete",
+            "event": "deletekey",
             "data": {
-                "key": "testing"
+                "key": "12"
             },
-            "message": "Item with key \"testing\" successfully removed."
+            "message": "Item with key \"12\" successfully removed."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
     "4": {
+        "payload": {
+            "event": "deletekeys",
+            "data": {
+                "keys": "12"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "deletekeys",
+            "data": {
+                "key": []
+            },
+            "message": "Item with key \"undefined\" successfully removed."
+        },
+        "description": "series of tests to test delete event function for removing key 'testing'"
+    },
+    "5": {
         "payload": {
             "event": "get",
             "data": {
@@ -143,87 +161,31 @@
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
-    "5": {
-        "payload": {
-            "event": "dumpkey",
-            "data": {
-                "key": "testing"
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
-    },
     "6": {
         "payload": {
-            "event": "dumpkeys",
+            "event": "get",
             "data": {
-                "keys": "testing"
+                "key": "12"
             }
         },
         "response": {
-            "status": "failed",
-            "event": "dumpkeys",
-            "error": {}
+            "status": "error",
+            "event": "get",
+            "message": "Item with key \"12\" not found."
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
     "7": {
         "payload": {
-            "event": "dumpkey",
+            "event": "get",
             "data": {
-                "key": "testing"
+                "key": "scores"
             }
         },
         "response": {
             "status": "success",
-            "event": "dumpkey",
-            "data": [],
-            "count": 0
-        },
-        "description": "series of tests to test delete event function for removing key 'testing'"
-    },
-    "8": {
-        "payload": {
-            "event": "dump",
+            "event": "get",
             "data": {
-                "key": "testing"
-            }
-        },
-        "response": {
-            "status": "success",
-            "event": "dump",
-            "data": {
-                "12": 20000,
-                "879898": [
-                    "test",
-                    "for",
-                    "alues"
-                ],
-                "123tsj": "testing",
-                "store": [
-                    "vaue",
-                    "loads",
-                    10
-                ],
-                "user_id": 101,
-                "username": "alpha_user",
-                "status": "Active",
-                "tags": [
-                    "premium",
-                    "new_member",
-                    "verified"
-                ],
-                "location": "New York City",
-                "last_login": "2025-11-10",
-                "settings": {
-                    "theme": "dark",
-                    "notifications": true
-                },
                 "scores": [
                     95,
                     88,
@@ -233,7 +195,61 @@
         },
         "description": "series of tests to test delete event function for removing key 'testing'"
     },
+    "8": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "testing"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        },
+        "description": "series of tests to test delete event function for removing key 'testing'"
+    },
     "9": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "12"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [],
+            "count": 0
+        },
+        "description": "series of tests to test delete event function for removing key 'testing'"
+    },
+    "10": {
+        "payload": {
+            "event": "dumpkey",
+            "data": {
+                "key": "scores"
+            }
+        },
+        "response": {
+            "status": "success",
+            "event": "dumpkey",
+            "data": [
+                {
+                    "key": "scores",
+                    "value": [
+                        95,
+                        88,
+                        92
+                    ]
+                }
+            ],
+            "count": 1
+        },
+        "description": "series of tests to test delete event function for removing key 'testing'"
+    },
+    "11": {
         "payload": {
             "event": "dump",
             "data": {}
@@ -242,7 +258,6 @@
             "status": "success",
             "event": "dump",
             "data": {
-                "12": 20000,
                 "879898": [
                     "test",
                     "for",

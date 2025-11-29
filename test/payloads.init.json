@@ -107,7 +107,7 @@
         },
         "response": {
             "status": "success",
-            "event": "init",
+            "event": "dump",
             "data": {
                 "scores": [
                     95,
@@ -119,13 +119,18 @@
     },
     "3": {
         "payload": {
-            "event": "dump",
-            "data": {}
+            "event": "delete",
+            "data": {
+                "key": "scores"
+            }
         },
         "response": {
             "status": "success",
-            "event": "dump",
-            "data": {}
+            "event": "delete",
+            "data": {
+                "key": "scores"
+            },
+            "message": "Item with key \"scores\" successfully removed."
         }
     },
     "4": {
