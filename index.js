@@ -230,7 +230,7 @@ function JsonManager() {
         console.log(`[JsonManager-GET] Requested key: ${key}. Found: ${data.hasOwnProperty(key) ? 'True' : 'False'}.`);
         return result; 
     }
-
+   
     function dump() { return { ...data }; }
     
     /**
