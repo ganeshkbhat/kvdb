@@ -17,6 +17,15 @@ please note: `redis-like` is an inference most of the shell commands are like re
 - any programming language that supports `tcp tls`, `tcp mtls` requests can be used as a client *[todo add request structure and parameters to docs]*
 
 
+```
+node index.js -h=localhost -p=7000 --mode server -dt=30m -log=app.log -cert=server.crt -key=server.key -ca-cert=ca.crt -l=store_dump.json
+```
+
+```
+node index.js -h=localhost -p=7000 --mode shell -log=app.log -cert=client.crt -key=client.key -ca-cert=ca.crt  
+```
+
+
 ### 🖥️ Server Mode Prefixes
 
 The following command-line arguments are used when running the application in server mode (`-s server`):
@@ -51,41 +60,6 @@ The following command-line arguments are used when running the application in sh
 
 todo: add all features
 
-<!-- 
-planned architecture withour load balancer and with single node
-
-
-```
-                                    ( => client local thread)
-                          => client ( => client local thread)
-                                    ( => client local thread)
-                  
-                                    ( => client local thread)
-jsondb => queue => server => client ( => client local thread)
-                                    ( => client local thread)
-
-                                    ( => client local thread)
-                          => client ( => client local thread)
-                                    ( => client local thread)
-```
-
-
-planned architecture with load balancer and with multi nodes
-
-```
-                                                                    ( => client local thread)
-                                                          => client ( => client local thread)
-                                                                    ( => client local thread)
-                   serverNode
-                   serverNode                                       ( => client local thread)
-jsondb => queue => serverNode => load balancing => server => client ( => client local thread)
-                   serverNode                                       ( => client local thread)
-                   serverNode
-                                                                    ( => client local thread)
-                                                          => client ( => client local thread)
-                                                                    ( => client local thread)
-```
- -->
 
 #### Running/ Usage
 
