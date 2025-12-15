@@ -116,10 +116,6 @@ example:
 ![DB Basic Storage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/db-basic-storage.jpg)
 
 
-### Architecture of kvjsondb - Shell Commands - Basic Usage
-![Shell Commands Basic Usage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/shell-commands-basic-usage.jpg)
-
-
 
 
 ### Shell Commands
