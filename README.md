@@ -111,10 +111,6 @@ example:
 - `node db.js -s "shell" -t "https" -p "4567" -ip "127.0.0.1" -k "./fldr/key"`
 
 
-### Architecture of kvjsondb - Basic Design
-
-![Basic Design - Architecture of KVJSONDB](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/kvjsondb-json-kv-inmemory-db-architecture.jpg)
-
 
 ### Architecture of kvjsondb - Basic Storage
 ![DB Basic Storage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/db-basic-storage.jpg)
