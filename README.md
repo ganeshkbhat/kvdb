@@ -65,30 +65,6 @@ The following command-line arguments are used when running the application in sh
 todo: add all features
 
 
-#### Running/ Usage
-
-
-`node db.js ...flags...`
-
-
-- `node db.js` *(default, starts shell)*
-
-- `node db.js -s "db"` 
-
-
-example:
-
-- `node db.js -s "shell" -t "ws" -p "4567" -ip "127.0.0.1"`
-
-
-example:
-
-- `node db.js -s "shell" -t "http" -p "4567" -ip "127.0.0.1" -u "user_name" -pwd "password"`
-
-
-- `node db.js -s "shell" -t "https" -p "4567" -ip "127.0.0.1" -k "./fldr/key"`
-
-
 
 ### Architecture of kvjsondb - Basic Storage
 ![DB Basic Storage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/db-basic-storage.jpg)
