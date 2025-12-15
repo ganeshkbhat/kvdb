@@ -21,10 +21,6 @@ please note: `redis-like` is an inference most of the shell commands are like re
 node index.js -h=localhost -p=7000 --mode server -dt=30m -log=app.log -cert=server.crt -key=server.key -ca-cert=ca.crt -l=store_dump.json
 ```
 
-```
-node index.js -h=localhost -p=7000 --mode shell -log=app.log -cert=client.crt -key=client.key -ca-cert=ca.crt  
-```
-
 
 ### 🖥️ Server Mode Prefixes
 
@@ -43,6 +39,14 @@ The following command-line arguments are used when running the application in se
 | `--dump-time`, `-dt` | `dumpTime` | `5m` | Time interval for dynamic data dumping (currently redundant due to synchronous write). |
 | `--load-file` | `loadFile` | `null` | File to load data from *if* the `dumpFile` is not present on startup. |
 | `--init-data` | `initData` | `null` | JSON string to initialize the store with upon startup. |
+
+
+
+```
+node index.js -h=localhost -p=7000 --mode shell -log=app.log -cert=client.crt -key=client.key -ca-cert=ca.crt  
+```
+
+
 
 ### 💻 Shell Client Mode Prefixes
 
