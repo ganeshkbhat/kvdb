@@ -1,5 +1,5 @@
 # keyvalue-jsondb
-*`fast`, `secure`, `private`, and `memory leak resistant` `in-memory` `key-value` `(closure encapsulated)` `json based` `datastore or database` that supports `http`, `https`, `ws`, `wss`, and a `command shell (without or with [todo] authentication)` and is `extendible with expressjs middlewares`*
+*`fast`, `secure`, `private`, and `memory leak resistant` `in-memory` `key-value` `(closure encapsulated)` `json based` `datastore or database` that supports `tcp mtls (tls)`, and a `command shell (without or with [todo] authentication)`*
 
 
 ##### indevelopment - do not use in production
@@ -8,42 +8,46 @@
 please note: `redis-like` is an inference most of the shell commands are like redis but a few changes have been made to accomodate the architecture. 
 
 
-- <a name="features">Features</a>
-- <a name="usage">Usage</a>
-- <a name="rundb">Running the Database Server</a>
-  - <a name="rundbdefaults">with defaults</a>
-  - <a name="rundbnouserpass">with no username/password</a>
-  - <a name="rundbuserpass">with username/password</a>
-  - <a name="rundbwithoutkeys">without keys</a>
-  - <a name="rundbwithkeys">with keys</a>
-- <a name="runshell">Running the Database Shell</a>
-  - <a name="runshelldefaults">with defaults</a>
-  - <a name="runshellnouserpass">with no username/password</a>
-  - <a name="runshelluserpass">with username/password</a>
-  - <a name="runshellwithoutkeys">without keys</a>
-  - <a name="runshellwithkeys">with keys</a>
-- <a name="shellcommands">Shell Commands</a>
-  - <a name="shellcommandsbasic">Shell Commands - Basic Usage</a>
-- <a name="jsondbclient">jsondb client - client api</a>
-  - <a name="jsondbclient">Client API</a>
-  - <a name="jsondbclientrequeststructures">Request Structures</a> (any language API)
-- <a name="architecturedocs">Architecture Docs</a>
-  - <a name="architecturedocsdesign">Basic Design - Architecture of kvjsondb</a>
-  - <a name="architecturedocsstorage">kvjsondb Basic Storage</a>
-- <a name="securitychecks">Security Checks and Consideration</a>
-- <a name="todo">TODO</a>
-
-
-
 #### FEATURES
 
 
-- ✓ runs in ✓`http`, or ✒️`https`, or `ws`, or `wss` (in development for tests)
-- ✒️runs a `database shell` with ✓`redis-like` commands (in development)
-- ✓ has a nodejs client api. 
-- ✒️use any language to make ✓`http`, ✒️`https`, `ws`, `wss` request code to make requests as a client. 
-  - the request structure is [defined here](#messagestructure) for every type of request function. 
-- any programming language that supports `http`, `https`, `ws`, `wss` requests can be used as a client *[todo add request structure and parameters to docs]*
+- ✓ runs in ✓`tcp tls`, or ✒️`tcp mtls`, or `ws`, or `wss` (in development for tests)
+- ✓ runs a `database or shell` mode with ✓`redis-like` commands (in development)
+- ✓ has a nodejs client api.  
+- any programming language that supports `tcp tls`, `tcp mtls` requests can be used as a client *[todo add request structure and parameters to docs]*
+
+
+### 🖥️ Server Mode Prefixes
+
+The following command-line arguments are used when running the application in server mode (`-s server`):
+
+| Prefix | Key | Default Value | Description |
+| :--- | :--- | :--- | :--- |
+| `-ip`, `-h`, `--host` | `ip` | `127.0.0.1` | IP address for the server to bind to. |
+| `-p`, `--port` | `port` | `9999` | TCP port the server listens on (Mandatory TLS). |
+| `-s`, `--mode` | `mode` | `server` | Specifies the application mode (must be `server`). |
+| `-c`, `--cert` | `cert` | `server.crt` | **Mandatory:** Path to the server's TLS certificate file. |
+| `-k`, `--key` | `key` | `server.key` | **Mandatory:** Path to the server's private key file. |
+| `-ca`, `--ca-cert` | `caCert` | `ca.crt` | **Mandatory:** Path to the Certificate Authority (CA) file used to verify client certificates (for mTLS). |
+| `--dump-file` | `dumpFile` | `store_dump.json` | The file used for automatic in-memory store synchronization. |
+| `--exit-dump-file` | `exitDumpFile` | *Same as `dumpFile`* | File used for the final dump upon graceful shutdown (SIGINT/SIGTERM). |
+| `--dump-time`, `-dt` | `dumpTime` | `5m` | Time interval for dynamic data dumping (currently redundant due to synchronous write). |
+| `--load-file` | `loadFile` | `null` | File to load data from *if* the `dumpFile` is not present on startup. |
+| `--init-data` | `initData` | `null` | JSON string to initialize the store with upon startup. |
+
+### 💻 Shell Client Mode Prefixes
+
+The following command-line arguments are used when running the application in shell mode (`-s shell`):
+
+| Prefix | Key | Default Value | Description |
+| :--- | :--- | :--- | :--- |
+| `-ip`, `-h`, `--host` | `ip` | `127.0.0.1` | IP address of the server to connect to. |
+| `-p`, `--port` | `port` | `9999` | TCP port of the server to connect to. |
+| `-s`, `--mode` | `mode` | `server` | Specifies the application mode (must be `shell`). |
+| `-ca`, `--ca-cert` | `caCert` | `ca.crt` | **Mandatory:** Path to the Certificate Authority (CA) file needed to validate the **server's** certificate. |
+| `-c`, `--cert` | `cert` | `server.crt` | **Optional (for mTLS):** Path to the client's TLS certificate. |
+| `-k`, `--key` | `key` | `server.key` | **Optional (for mTLS):** Path to the client's private key. |
+
 
 todo: add all features
 
@@ -94,270 +98,15 @@ jsondb => queue => serverNode => load balancing => server => client ( => client 
 - `node db.js -s "db"` 
 
 
-
-##### ...flags...
-
-
-`prefix: "-p" port [default: 4567]`
-
-`prefix: "-t", server protocol [default: ws, will enable http and ws]`
-
-`type options: (a) http, (b) https, (c) ws, (d) wss` (consider enabling all protocols)
-
-`prefix: "-ip", ip address [default: 127.0.0.1]`
-
-`prefix: "-k", key path [default: none, will enable http or ws]`
-
-`prefix: "-c", certificate path [default: none, will enable use http or ws]`
-
-`prefix: "-u", user [default: blank]`
-
-`prefix: "-pwd", password [default: blank]`
-
-`prefix: "-s", db server or shell [default: shell]`
-
-
-##### defaults
-
-- `shell` (`-s`) options: `shell`, `db` [*default: `shell`*]
-- `type` (`-t`) options: `http`, `https`, `ws`, `wss` [*default: `ws`*]
-- `port` (`-p`) options: [default: `4567` or provided `custom port`]
-- `ip` (`-ip`) options: [default: `127.0.0.1` / `192.168.1.1`] or provided `custom ip address`
-- `key` (`-k`)/ `cert` (`-c`) options: [default: `generate` `public and private key pair` for db server] 
-
-
-#### Server Running/ Usage - kvjsondb
-
-
-##### run database server with [a] defaults
-
-
-- `node db.js -s "db"`
-
-
-
-##### run database server with [b] with no username/password
-
-
-- `node db.js -s "db"`
-
-- `node db.js -s "db" -t "type"`
-
-- `node db.js -s "db" -p "port"`
-
-- `node db.js -s "db" -ip "ip"`
-
-- `node db.js -s "db" -t "type" -p "port"`
-
-- `node db.js -s "db" -t "type" -ip "ip"`
-
-- `node db.js -s "db" -ip "ip" -p "port"`
-
-- `node db.js -s "db" -t "type" -p "port" -ip "ip"`
-
-example: 
-
-- `node db.js -s "db" -t "http" -p "4567" -ip "127.0.0.1"`
-
-
-
-##### run database server with [c] with username/password
-
-
-- `node db.js -s "db" -u "user" -pwd "pass"`
-
-- `node db.js -s "db" -t "type" -u "user" -pwd "pass"`
-
-- `node db.js -s "db" -t "type" -p "port" -u "user" -pwd "pass"`
-
-- `node db.js -s "db" -t "type" -p "port" -ip "ip" -u "user" -pwd "pass"`
-
-example: 
-
-- `node db.js -s "db" -t "https" -p "4567" -ip "127.0.0.1" -u "user_name" -pwd "password"`
-
-
-
-##### run database server with [d] without keys
-
-
-- `node db.js -s "db"`
-
-- `node db.js -s "db" -t "type"`
-
-- `node db.js -s "db" -p "port"`
-
-- `node db.js -s "db" -ip "ip"`
-
-- `node db.js -s "db" -t "type" -p "port"`
-
-- `node db.js -s "db" -t "type" -ip "ip"`
-
-- `node db.js -s "db" -p "port" -ip "ip"`
-
-- `node db.js -s "db" -t "type" -p "port" -ip "ip"`
-
-example: 
-
-- `node db.js -s "db" -t "ws" -p "4567" -ip "127.0.0.1"`
-
-
-
-##### run database server with [d] with keys
-
-`type` options are always `https` or `wss`
-
-- `node db.js -s "db" -t "https"` (considering default as generate keys for db server)
-
-- `node db.js -s "db" -t "wss"` (considering default as generate keys for db server)
-
-- `node db.js -s "db" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -t "type" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -p "port" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -ip "ip" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -t "type" -p "port" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -t "type" -ip "ip" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -p "port" -ip "ip" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-- `node db.js -s "db" -t "type" -p "port" -ip "ip" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-example: 
-
-- `node db.js -s "db" -t "wss" -p "4567" -ip "127.0.0.1" -k "./fldr/key" -c "./fldr/cert.crt"`
-
-
-
-##### run shell or login to shell with [a] defaults
-
-
-- `node db.js` *(default, starts shell)*
-
-
-
-##### run shell or login to shell with [b] no username/password
-
-
-- `node db.js`
-
-- `node db.js -s "shell"`
-
-- `node db.js -t "type"`
-
-- `node db.js -p "port"`
-
-- `node db.js -ip "ip"`
-
-- `node db.js -t "type" -p "port"`
-
-- `node db.js -t "type" -ip "ip"`
-
-- `node db.js -p "port" -ip "ip"`
-
-- `node db.js -t "type" -p "port" -ip "ip"`
-
-- `node db.js -s "shell" -t "type"`
-
-- `node db.js -s "shell" -p "port"`
-
-- `node db.js -s "shell" -ip "ip"`
-
-- `node db.js -s "shell" -t "type" -p "port"`
-
-- `node db.js -s "shell" -t "type" -ip "ip"`
-
-- `node db.js -s "shell" -p "port" -ip "ip"`
-
-- `node db.js -s "shell" -t "type" -p "port" -ip "ip"`
-
 example:
 
 - `node db.js -s "shell" -t "ws" -p "4567" -ip "127.0.0.1"`
 
 
-
-##### run shell or login to shell with [c] with username/password
-
-
-- `node db.js -u "user" -pwd "pass"`
-
-- `node db.js -t "type" -u "user" -pwd "pass"`
-
-- `node db.js -p "port" -u "user" -pwd "pass"`
-
-- `node db.js -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -t "type" -p "port" -u "user" -pwd "pass"`
-
-- `node db.js -t "type" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -p "port" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -t "type" -p "port" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -t "type" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -p "port" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -t "type" -p "port" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -t "type" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -p "port" -ip "ip" -u "user" -pwd "pass"`
-
-- `node db.js -s "shell" -t "type" -p "port" -ip "ip" -u "user" -pwd "pass"`
-
 example:
 
 - `node db.js -s "shell" -t "http" -p "4567" -ip "127.0.0.1" -u "user_name" -pwd "password"`
 
-
-
-##### run shell or login to shell with [c] certificate
-
-
-- `node db.js -k "./fldr/key"`
-
-- `node db.js -t "type" -k "./fldr/key"`
-
-- `node db.js -p "port" -k "./fldr/key"`
-
-- `node db.js -ip "ip" -k "./fldr/key"`
-
-- `node db.js -t "type" -p "port" -k "./fldr/key"`
-
-- `node db.js -t "type" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -p "port" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -t "type" -p "port" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -s "shell" -k "./fldr/key"`
-
-- `node db.js -s "shell" -p "port" -k "./fldr/key"`
-
-- `node db.js -s "shell" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -s "shell" -t "type" -k "./fldr/key"`
-
-- `node db.js -s "shell" -t "type" -p "port" -k "./fldr/key"`
-
-- `node db.js -s "shell" -t "type" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -s "shell" -p "port" -ip "ip" -k "./fldr/key"`
-
-- `node db.js -s "shell" -t "type" -p "port" -ip "ip" -k "./fldr/key"`
-
-example:
 
 - `node db.js -s "shell" -t "https" -p "4567" -ip "127.0.0.1" -k "./fldr/key"`
 
@@ -374,56 +123,6 @@ example:
 ### Architecture of kvjsondb - Shell Commands - Basic Usage
 ![Shell Commands Basic Usage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/shell-commands-basic-usage.jpg)
 
-
-
-### Shell [ commands, usage ] - kvjsondb 
-
-`node db.js ...flags...`
-
-
-##### ...flags...
-
-
-`prefix: "-p" port [default: 4567]`
-
-`prefix: "-t", server protocol [default: ws, will enable http and ws]`
-
-`prefix: "-ip", ip address [default: 127.0.0.1]`
-
-`prefix: "-k", key path [default: none, will enable http or ws]` (consider generate as default)
-
-`prefix: "-c", certificate path [default: none, will enable use http or ws]` (consider generate as default)
-
-`prefix: "-u", user [default: blank]`
-
-`prefix: "-pwd", password [default: blank]`
-
-`prefix: "-s", db server or shell [default: shell, options: shell or db]`
-
-
-##### defaults
-
-
-- `shell` (`-s`) options: `shell`, `db` [*default: `shell`*]
-- `type` (`-t`) options: `http`, `https`, `ws`, `wss` [*default: `ws`*] (consider enabling all protocols)
-- `port` (`-p`) options: [default: `4567` or provided `custom port`]
-- `ip` (`-ip`) options: [default: `127.0.0.1` / `192.168.1.1`] or provided `custom ip address`
-- `key` (`-k`)/ `cert` (`-c`) options: [default: `generate` `public and private key pair` for db server] 
-
-
-
-### Start Shell Command
-
-
-`node db.js` (starts shell, unless `-s "db"` is provided)
-
-`node db.js -p "port"`
-
-`node db.js -ip "ip"`
-
-`node db.js -p "port" -ip "ip"`
-
-`node db.js -p "port" -ip "ip" -t "type"`
 
 
 
