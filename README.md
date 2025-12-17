@@ -13,8 +13,8 @@ please note: `redis-like` is an inference most of the shell commands are like re
 
 - ✓ runs in ✓`tcp tls`, or ✒️`tcp mtls`, or `ws`, or `wss` (in development for tests)
 - ✓ runs a `database or shell` mode with ✓`redis-like` commands (in development)
-- ✓ has a nodejs client api.  
-- any programming language that supports `tcp tls`, `tcp mtls` requests can be used as a client *[todo add request structure and parameters to docs]*
+- ✒️ has a nodejs client api.  
+- ✒️ any programming language that supports `tcp tls`, `tcp mtls` requests can be used as a client *[todo add request structure and parameters to docs]*
 
 
 ### 🖥️ Server Mode Prefixes
