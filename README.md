@@ -36,7 +36,7 @@ The server manages the database state in memory and handles periodic synchroniza
 | `-p`, `--port` | Port to listen on. | `9999` |
 | `-ip`, `-h` | IP address to bind to. | `127.0.0.1` |
 | `-dt` | Persistence interval (e.g., `10s`, `1m`, `1h2m`). | `60s` |
-| `--dump-file` | **Primary** file for startup load and periodic saving. | None |
+| `--dump-file` | **Primary** file for startup load and periodic saving. needed for final graceful shutdown. | None |
 | `-l`, `--load` | **Secondary** file (used if `--dump-file` is missing). | `data.sqlite` |
 | `-ca` | Path to CA certificate. | `ca.crt` |
 | `-c`, `--cert` | Path to Server certificate. | `server.crt` |
@@ -45,7 +45,7 @@ The server manages the database state in memory and handles periodic synchroniza
 
 **Example Command:**
 ```bash
-node index.js --mode db -h localhost -p 8000 -dt 5m --dump-file data.sqlite -cert "./certs/server.crt" -key "./certs/server.key" -ca-cert "./certs/ca.crt"
+node index.js --mode db -h localhost -p 8000 -dt 5m --dump-file data.sqlite --cert "./certs/server.crt" --key "./certs/server.key" --ca-cert "./certs/ca.crt"
 ```
 
 
@@ -69,8 +69,11 @@ The client provides a secure interactive shell. The prompt is dynamically genera
 
 **Startup Example:**
 ```bash
-node index.js --mode shell -h localhost -p 8000 -cert "./certs/client.crt" -key "./certs/client.key" -ca-cert "./certs/ca.crt"
+node index.js --mode shell -h localhost -p 8000 --cert "./certs/client.crt" --key "./certs/client.key" --ca-cert "./certs/ca.crt"
 ```
+
+<iframe width="560" height="315" src="[www.youtube.com](https://youtu.be/_c99SPW4DBo)" frameborder="0" allowfullscreen></iframe>
+
 
 
 todo: add all features
