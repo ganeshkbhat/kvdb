@@ -2,7 +2,7 @@
   "name": "kvdb",
   "version": "1.0.0",
   "main": "index.js",
-  "description": "fast, secure and private, memory leak resistant redis like key value json based data store or database that supports http, https, ws, wss, and command shell (without authentication) and is extendible with expressjs middlewares",
+  "description": "`fast`, `secure`, `private`, and `memory leak resistant` `in-memory` `key-value` `js-sqlite based` `datastore or database` that supports `tcp mtls (tls)`, and a `command shell (without or with [todo] authentication)`",
   "scripts": {
     "start": "node index.js",
     "build": "pkg .",

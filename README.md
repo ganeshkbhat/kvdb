@@ -122,6 +122,7 @@ The script implements exactly the three triggers you requested:
 | `list` | | `list -n <count>` | Lists all records in the current table. Use -n to enable pagination (e.g., list -n 10). Action: Press ENTER at the pagination prompt to load the next batch. |
 | `sql` | | `sql -cmd <sql command>` | Executes raw SQL against the in-memory database. Use backticks for the query |
 | `use` |  | `use <tablename>` | use the context of which table/ database is being used for key-value store |
+| `drop` |  | `drop <tablename>` | drop the context of which table/ database is being mentioned. tables are given a context of key-value database |
 | `exit` | `quit` | `exit` | Disconnects the shell client and quits. |
 | `help` | | `help` | Displays the help menu. |
 
