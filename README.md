@@ -25,17 +25,19 @@ please note: `redis-like` is an inference most of the shell commands are like re
 
 -----------------------------------------------
 
+
+# Server Database Documentation
+
+
 ### 🖥️ Server Mode Prefixes
 
 The following command-line arguments are used when running the application in server mode (`-s server`):
-
-# Server Database Documentation
 
 TLite is a lightweight, TLS-encrypted, in-memory SQLite database system designed for speed and security. It features periodic disk persistence, robust search modes, and a dynamic interactive shell.
 
 ---
 
-## 1. Server Startup Prefixes 
+### 1. Server Startup Prefixes 
 
 The server manages the database state in memory and handles periodic synchronization to the disk.
 
@@ -63,7 +65,7 @@ node index.js --mode db -h localhost -p 8000 -dt 5m --dump-file data.sqlite --ce
 
 The following command-line arguments are used when running the application in shell mode (`-s shell`):
 
-## 2. Client Startup Prefixes 
+### 2. Client Startup Prefixes 
 
 The client provides a secure interactive shell. The prompt is dynamically generated only after a successful connection to ensure the displayed port is accurate: `user@host:port>`.
 
