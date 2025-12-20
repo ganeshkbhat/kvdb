@@ -41,8 +41,8 @@ The server manages the database state in memory and handles periodic synchroniza
 | `-ca` | Path to CA certificate. | `ca.crt` |
 | `-c`, `--cert` | Path to Server certificate. | `server.crt` |
 | `-k`, `--key` | Path to Server private key. | `server.key` |
-| `--mode`, `-s` |  `--mode db` will start in database mode | `shell` |
-| `--log-prefix` (or `-lp`) | the logging file path. log follows the structure: `[Timestamp] [Remote_IP] [Command] [Status] "Message"` | --dump-file |
+| `-s`, `--mode` |  `--mode db` will start in database mode | `shell` |
+| `-lp`, `--log-prefix` | the logger file path. logger follows the structure: `[Timestamp] [Remote_IP] [Command] [Status] "Message"` | `--dump-file` or working directory |
 
 
 **Example Command:**
