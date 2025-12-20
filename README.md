@@ -42,6 +42,8 @@ The server manages the database state in memory and handles periodic synchroniza
 | `-c`, `--cert` | Path to Server certificate. | `server.crt` |
 | `-k`, `--key` | Path to Server private key. | `server.key` |
 | `--mode`, `-s` |  `--mode db` will start in database mode | `shell` |
+| `--log-prefix` (or `-lp`) | the logging file path. log follows the structure: `[Timestamp] [Remote_IP] [Command] [Status] "Message"` | --dump-file |
+
 
 **Example Command:**
 ```bash
@@ -72,12 +74,32 @@ The client provides a secure interactive shell. The prompt is dynamically genera
 node index.js --mode shell -h localhost -p 8000 --cert "./certs/client.crt" --key "./certs/client.key" --ca-cert "./certs/ca.crt"
 ```
 
+-----------------------------------------------
+
+
 [![Watch the comprehensive video](https://youtu.be/_c99SPW4DBo?si=lXmtiYF8k8uMarRM)](https://www.youtube.com/watch?v=_c99SPW4DBo)
+
+
+-----------------------------------------------
+
 
 ### Architecture of kvjsondb - Basic Storage
 ![DB Basic Storage](https://github.com/ganeshkbhat/keyvalue-jsondb/blob/main/docs/db-basic-storage.jpg)
 
 
+-----------------------------------------------
+
+
+How Synchronization (Dumping) Happens
+
+The script implements exactly the three triggers you requested:
+
+- Interval-based Sync: The setInterval function runs a VACUUM INTO command every $X$ seconds (defined by the -dt flag). This creates a consistent snapshot of the memory state into the disk file without locking the database for users.
+- Graceful Exit Sync: The handleShutdown function captures SIGINT (Ctrl+C) and SIGTERM. It executes a final synchronous dump to the disk file before the process terminates.
+- Crash Recovery Sync: The uncaughtException listener acts as a safety net. If the Node.js process encounters a fatal error, it attempts one last emergency dump to prevent data loss.
+
+
+-----------------------------------------------
 
 
 ### Shell Commands
@@ -99,12 +121,13 @@ node index.js --mode shell -h localhost -p 8000 --cert "./certs/client.crt" --ke
 | `dump` | | `dump -f <filename>` | Instructs the **server** to save the current store to the specified filename on the server's disk. |
 | `list` | | `list -n <count>` | Lists all records in the current table. Use -n to enable pagination (e.g., list -n 10). Action: Press ENTER at the pagination prompt to load the next batch. |
 | `sql` | | `sql -cmd <sql command>` | Executes raw SQL against the in-memory database. Use backticks for the query |
-| `help` | | `help` | Displays the help menu. |
-| `use` |  | `use <tablename>` | use the context of whih table/ database is being used for key-value store |
+| `use` |  | `use <tablename>` | use the context of which table/ database is being used for key-value store |
 | `exit` | `quit` | `exit` | Disconnects the shell client and quits. |
+| `help` | | `help` | Displays the help menu. |
 
 
 -----------------------------
+
 
 ###### set
 \> `set <key> <value>`

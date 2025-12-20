@@ -23,7 +23,7 @@ const MODE = getFlagValue(['-s', '--mode'], 'shell').toLowerCase();
 const defaultCert = (MODE === 'db') ? 'server.crt' : 'client.crt';
 const defaultKey = (MODE === 'db') ? 'server.key' : 'client.key';
 
-// 3. Apply overrides from command line (Verbose Options Added)
+// 3. Apply overrides from command line
 const CA_FILE   = getFlagValue(['-ca', '--ca-cert'], 'ca.crt');
 const CERT_FILE = getFlagValue(['-c', '--cert'], defaultCert);
 const KEY_FILE  = getFlagValue(['-k', '--key', '--keys'], defaultKey);
@@ -50,9 +50,28 @@ if (!ok) {
 
 // --- SERVER (DB) MODE ---
 if (MODE === 'db') {
-    console.log(`[*] Starting DB Server...`);
-    console.log(`[*] Cert: ${path.resolve(CERT_FILE)}`);
-    console.log(`[*] Key:  ${path.resolve(KEY_FILE)}`);
+    const DB_PATH = getFlagValue(['--dump-file'], null) || getFlagValue(['-l', '--load'], path.join(__dirname, 'data.sqlite'));
+    const LOG_PREFIX = getFlagValue(['-lp', '--log-prefix'], DB_PATH);
+    const LOG_PATH = LOG_PREFIX + ".log";
+    const DT_RAW = getFlagValue(['-dt'], '60s');
+
+    // Enhanced Logging Utility
+    const logger = (socket, event, cmd, status, message) => {
+        const timestamp = new Date().toISOString();
+        const ip = socket ? socket.remoteAddress : "127.0.0.1";
+        const port = socket ? socket.remotePort : "0000";
+        const clientInfo = `${ip}:${port}`;
+        
+        const cleanMsg = String(message).replace(/"/g, "'").replace(/\n/g, " ");
+        const logEntry = `[${timestamp}] [${clientInfo}] [${event.toUpperCase()}] [${cmd.toUpperCase()}] [${status}] "${cleanMsg}"\n`;
+        
+        try {
+            fs.appendFileSync(LOG_PATH, logEntry);
+        } catch (e) {
+            console.error(`[CRITICAL] Logger Fail: ${e.message}`);
+        }
+        console.log(logEntry.trim());
+    };
 
     function parseDuration(str) {
         const regex = /(-?\d+)([hms])/g;
@@ -67,9 +86,6 @@ if (MODE === 'db') {
         }
         return found ? totalSeconds : (parseInt(str, 10) || 60);
     }
-
-    const DB_PATH = getFlagValue(['--dump-file'], null) || getFlagValue(['-l', '--load'], path.join(__dirname, 'data.sqlite'));
-    const DT_RAW = getFlagValue(['-dt'], '60s');
 
     let globalLock = false;
     const commandQueue = [];
@@ -88,11 +104,19 @@ if (MODE === 'db') {
         if (fs.existsSync(DB_PATH)) {
             memDb.run(`ATTACH DATABASE '${DB_PATH}' AS disk`, (err) => {
                 if (!err) {
-                    memDb.run(`INSERT OR IGNORE INTO main.${currentTable} SELECT * FROM disk.${currentTable}`, () => {
+                    memDb.all("SELECT name FROM disk.sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'", (e, tables) => {
+                        if (!e) {
+                            tables.forEach(t => {
+                                memDb.run(`CREATE TABLE IF NOT EXISTS main.${t.name} (key TEXT PRIMARY KEY, value TEXT)`);
+                                memDb.run(`INSERT OR IGNORE INTO main.${t.name} SELECT * FROM disk.${t.name}`);
+                            });
+                        }
                         memDb.run(`DETACH DATABASE disk`, () => {
-                            console.log(`[*] Initial data synced. Disk file UNLOCKED.`);
+                            logger(null, "SYSTEM", "BOOT_SYNC", "SUCCESS", `Memory loaded from ${path.basename(DB_PATH)}`);
                         });
                     });
+                } else {
+                    logger(null, "SYSTEM", "BOOT_SYNC", "ERROR", err.message);
                 }
             });
         }
@@ -101,26 +125,34 @@ if (MODE === 'db') {
     const persistToDisk = (targetPath = DB_PATH, socket = null, cmd = 'auto-sync', callback = null) => {
         if (fs.existsSync(targetPath)) { try { fs.unlinkSync(targetPath); } catch(e) {} }
         memDb.run(`VACUUM INTO '${targetPath}'`, (err) => {
-            if (socket) sendJson(socket, { status: err ? "error" : "success", command: cmd, message: err ? err.message : `Persisted to ${path.basename(targetPath)}` });
+            const status = err ? "ERROR" : "SUCCESS";
+            const msg = err ? err.message : `Dumped to ${path.basename(targetPath)}`;
+            logger(socket, "SYNC", cmd, status, msg);
+            if (socket) sendJson(socket, { status, command: cmd, message: msg });
             if (callback) callback(err);
         });
     };
 
-    setInterval(persistToDisk, parseDuration(DT_RAW) * 1000);
+    setInterval(() => persistToDisk(), parseDuration(DT_RAW) * 1000);
 
     const server = tls.createServer({
         key: fs.readFileSync(KEY_FILE), cert: fs.readFileSync(CERT_FILE), ca: fs.readFileSync(CA_FILE),
         requestCert: true, rejectUnauthorized: true
     }, (socket) => {
+        logger(socket, "NETWORK", "TLS_CONNECT", "INFO", "Handshake successful");
         socket.cursor = { results: [], limit: 0, index: 0, total: 0 };
         socket.on('data', (data) => {
             try {
                 const req = JSON.parse(data.toString());
                 commandQueue.push({ cmd: req.cmd, args: req.args || {}, socket });
                 processQueue();
-            } catch (e) { sendJson(socket, { status: "error", message: "Malformed JSON" }); }
+            } catch (e) { 
+                logger(socket, "NETWORK", "JSON_PARSE", "ERROR", "Malformed payload");
+                sendJson(socket, { status: "error", message: "Malformed JSON" }); 
+            }
         });
-        socket.on('error', () => {});
+        socket.on('end', () => logger(socket, "NETWORK", "DISCONNECT", "INFO", "Connection closed"));
+        socket.on('error', (err) => logger(socket, "NETWORK", "SOCKET_ERR", "ERROR", err.message));
     });
 
     function sendJson(socket, obj) {
@@ -133,6 +165,13 @@ if (MODE === 'db') {
         if (writeCmds.includes(command)) globalLock = true;
 
         const finalize = (err, result) => {
+            const status = err ? "ERROR" : "SUCCESS";
+            let context = `Table: ${currentTable}`;
+            if (args.k) context += ` | Key: ${args.k}`;
+            if (args.sql) context += ` | Query: ${args.sql.substring(0, 50)}...`;
+
+            logger(socket, "COMMAND", command, status, context);
+
             if (err) sendJson(socket, { status: "error", command, message: err.message });
             else if ((command === 'get' || command === 'delete') && result === undefined) {
                 sendJson(socket, { status: "error", command, message: "Key not found" });
@@ -213,10 +252,10 @@ if (MODE === 'db') {
     }
 
     const handleShutdown = (type) => {
-        console.log(`\n[SHUTDOWN] Signal: ${type}. Performing emergency dump...`);
+        logger(null, "SYSTEM", "SHUTDOWN", "INFO", `Signal: ${type}. Preserving memory state...`);
         persistToDisk(DB_PATH, null, 'shutdown-sync', (err) => {
-            if (err) console.error("[CRITICAL] Final dump failed:", err.message);
-            else console.log("[SUCCESS] Final memory state persisted to disk.");
+            if (err) logger(null, "SYSTEM", "SHUTDOWN", "ERROR", err.message);
+            else logger(null, "SYSTEM", "SHUTDOWN", "SUCCESS", "Memory persisted to disk.");
             process.exit(err ? 1 : 0);
         });
         setTimeout(() => process.exit(1), 5000);
@@ -225,18 +264,16 @@ if (MODE === 'db') {
     process.on('SIGINT', () => handleShutdown('SIGINT'));
     process.on('SIGTERM', () => handleShutdown('SIGTERM'));
     process.on('uncaughtException', (err) => {
-        console.error("[CRASH] Uncaught Exception:", err.stack || err.message);
+        logger(null, "SYSTEM", "CRASH", "FATAL", err.stack);
         handleShutdown('CRASH');
     });
 
-    server.listen(PORT, HOST, () => console.log(`[DB MODE] Active on ${HOST}:${PORT}`));
+    server.listen(PORT, HOST, () => {
+        logger(null, "SYSTEM", "STARTUP", "SUCCESS", `Active on ${HOST}:${PORT}`);
+    });
 
 } else if (MODE === 'shell') {
     // --- SHELL (CLIENT) MODE ---
-    console.log(`[*] Connecting as Shell...`);
-    console.log(`[*] Cert: ${path.resolve(CERT_FILE)}`);
-    console.log(`[*] Key:  ${path.resolve(KEY_FILE)}`);
-
     let cursorActive = false, pendingCommand = null;
     const client = tls.connect(PORT, HOST, {
         key: fs.readFileSync(KEY_FILE), cert: fs.readFileSync(CERT_FILE), ca: fs.readFileSync(CA_FILE),
