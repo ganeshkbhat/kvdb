@@ -1,11 +1,11 @@
 {
   "name": "kvdb",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "main": "index.js",
   "description": "`fast`, `secure`, `private`, and `memory leak resistant` `in-memory` `key-value` `js-sqlite based` `datastore or database` that supports `tcp mtls (tls)`, and a `command shell (without or with [todo] authentication)`",
   "scripts": {
     "start": "node index.js",
-    "build": "pkg .",
+    "build": "pkg index.js -o kvDB -t node18-win-x64,node18-linux-x64,node18-macos-x64",
     "test": "mocha --reporter spec --recursive --timeout 60000"
   },
   "directories": {
