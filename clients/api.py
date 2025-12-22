@@ -2,6 +2,8 @@ import socket
 import ssl
 import json
 
+# import using relative pathing of python and parent folder of keyvaluedb
+
 def kvdb_client(host, port, ca_cert, client_cert, client_key):
     """
     kvdb_client Client API - Python Implementation

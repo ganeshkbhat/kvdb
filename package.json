@@ -1,5 +1,5 @@
 {
-  "name": "kvdb",
+  "name": "kvsql",
   "version": "0.0.4",
   "main": "index.js",
   "description": "`fast`, `secure`, `private`, and `memory leak resistant` `in-memory` `key-value` `js-sqlite based` `datastore or database` that supports `tcp mtls (tls)`, and a `command shell (without or with [todo] authentication)`",
